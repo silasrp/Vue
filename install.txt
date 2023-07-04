@@ -1,0 +1,7 @@
+--install Vue CLI (root before creating folders)
+npm install -g @vue/cli
+
+-- instal VC extension Vue Language Features (Volar)
+
+-- install Vue Router inside front-end
+npm install vue-router@4
