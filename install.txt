@@ -5,3 +5,13 @@ npm install -g @vue/cli
 
 -- install Vue Router inside front-end
 npm install vue-router@4
+
+-- install express on backend folder
+npm install express
+
+-- install babel packages
+npm install --save-dev @babel/core @babel/node @babel/preset-env @babel/cli @babel/plugin-transform-runtime
+npm install @babel/runtime
+
+-- install nodemon on the backend to restart serer automatically
+npm install --save-dev nodemon
