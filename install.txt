@@ -24,3 +24,6 @@ db.products.insertMany([{id: '123',name: 'Basil',price: '$26.00',imageUrl: '/ima
 
 -- script to create users collection
 db.users.insertOne({id: '12345', cartItems: ['123', '345']})
+
+-- install axios to the front end   //servr requests from the front end
+npm install axios

@@ -5,7 +5,7 @@
             v-for="product in products"
             :key="product.id"
             >
-                <img :src="product.imageName" />
+                <img :src="product.imageUrl" />
                 <h3 class="product-name">{{ products.name }}</h3>
                 <p class="product-price">{{ products.price }}</p> 
                 <router-link :to="'/products/' + product.id">
