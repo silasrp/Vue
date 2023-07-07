@@ -27,3 +27,6 @@ db.users.insertOne({id: '12345', cartItems: ['123', '345']})
 
 -- install axios to the front end   //servr requests from the front end
 npm install axios
+
+-- npm install firebase to the front end for authentication
+npm install firebase@9.15.0
