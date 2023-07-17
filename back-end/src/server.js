@@ -3,7 +3,8 @@ import { MongoClient } from 'mongodb';
 import path from 'path';
 async function start() {
     // const client = new MongoClient('mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.10.1');
-    const client = new MongoClient('mongodb+srv://silasrp:Abc123!@vue-cluster.hldcook.mongodb.net/');
+    const url = `mongodb+srv://silasrp:Abc123!@vue-cluster.hldcook.mongodb.net/`;
+    const client = new MongoClient(url);
     await client.connect();
     const db = client.db('full-stack-vue');
 
@@ -11,6 +12,11 @@ async function start() {
     app.use(express.json());
 
     app.use('/images', express.static(path.join(__dirname, '../assets')));
+
+    app.use(express.static(
+        path.resolve(__dirname, '../dist'),
+        { maxAge: '1y', etag: false},
+    ));
 
     app.get('/api/products', async (req,res) => {
         const products = await db.collection('products').find({}).toArray();
@@ -62,9 +68,14 @@ async function start() {
         res.json(populatedCart);
     });
 
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../dist/index.html'));
+    });
+
+    const port = process.env.PORT || 8000;
 
     app.listen(8000, () => {
-        console.log('Server is listening on port 8000');
+        console.log('Server is listening on port ' + port);
     });
 }
 
