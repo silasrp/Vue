@@ -1,13 +1,10 @@
 import express from 'express';
 import { MongoClient } from 'mongodb';
 import path from 'path';
-async function start() {
-    // const client = new MongoClient('mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.10.1');
-    const url = `mongodb+srv://silasrp:Abc123!@vue-cluster.hldcook.mongodb.net/`;
-    const client = new MongoClient(url);
-    await client.connect();
-    const db = client.db('full-stack-vue');
+import {db, connectToDb} from './db.js';
+import 'dotenv/config';
 
+async function start() {
     const app = express();
     app.use(express.json());
 
@@ -74,9 +71,13 @@ async function start() {
 
     const port = process.env.PORT || 8000;
 
-    app.listen(8000, () => {
-        console.log('Server is listening on port ' + port);
+    connectToDb(() => {
+        console.log('Successfully connected to database!');
+        app.listen(port, () => {
+            console.log('Server is listening on port ' + port);
+        });
     });
+
 }
 
 start();

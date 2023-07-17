@@ -30,3 +30,6 @@ npm install axios
 
 -- npm install firebase to the front end for authentication
 npm install firebase@9.15.0
+
+-- npm install dotenv for environment variables
+npm install dotenv
