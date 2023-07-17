@@ -23,7 +23,7 @@ async function start() {
 
     app.get('/api/users/:userId/cart', async (req,res) => {
         const user = await db.collection('users').findOne({id: req.params.userId});
-        const populatedCart = await populateCartIds(user.cartItems);
+        const populatedCart = await populateCartIds(user?.cartItems || []);
         res.json(populatedCart);
     });
 
@@ -36,11 +36,18 @@ async function start() {
     app.post('/api/users/:userId/cart', async (req, res) => {
         const userId = req.params.userId;
         const productId = req.body.id;
+
+        // check if user exosts, otherwise creates it
+        const existingUser = await db.collection('users').findOne({ id: userId });
+        if (!existingUser){
+            await db.collection('users').insertOne({ id: userId, cartItems: [] });
+        }
+
         await db.collection('users').updateOne({id: userId}, {
             $addToSet: { cartItems: productId },  //addToSet doesnt add duplicates
         });
         const user = await db.collection('users').findOne({id: req.params.userId});
-        const populatedCart = await populateCartIds(user.cartItems);
+        const populatedCart = await populateCartIds(user?.cartItems || []);
         res.json(populatedCart);
     });
 
@@ -51,7 +58,7 @@ async function start() {
             $pull: { cartItems: productId },  
         });
         const user = await db.collection('users').findOne({id: req.params.userId});
-        const populatedCart = await populateCartIds(user.cartItems);
+        const populatedCart = await populateCartIds(user?.cartItems || []);
         res.json(populatedCart);
     });
 

@@ -39,7 +39,8 @@ export default {
     watch: {
         async user(newUserValue) {
             if (newUserValue) {
-                const cartResponse = await axios.get('/api/users/${newUserValue.uid}/cart/');
+                const cartResponse = await axios.get(`/api/users/${newUserValue.uid}/cart/`);
+                // const cartResponse = await axios.get('/api/users/12345/cart/');
                 const cartItems = cartResponse.data;
                 this.cartItems = cartItems;
             }            
@@ -47,11 +48,11 @@ export default {
     },
     methods: {
         async addToCart() {
-            await axios.post('/api/users/12345/cart', { id: this.$route.params.productId });
+            await axios.post(`/api/users/${this.user.uid}/cart`, { id: this.$route.params.productId });
             alert('Successfully added item to cart!');
         },
         async signIn() {
-            const email = prompt('Pleae enter your email to sign in:');
+            const email = prompt('Please enter your email to sign in:');
             const auth = getAuth();
             const actionCodeSettings = {
                 url: `https://localhost:8080/products/${this.$route.params.productId}`,
@@ -78,7 +79,8 @@ export default {
         this.product = product;
 
         if (this.user) {
-            const cartResponse = await axios.get('/api/users/${this.user.uid}/cart/');
+            const cartResponse = await axios.get(`/api/users/${this.user.uid}/cart/`);
+            // const cartResponse = await axios.get('/api/users/12345/cart/');
             const cartItems = cartResponse.data;
             this.cartItems = cartItems;
         }
