@@ -2,8 +2,8 @@ import express from 'express';
 import { MongoClient } from 'mongodb';
 import path from 'path';
 async function start() {
-    const client = new MongoClient('mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.10.1');
-
+    // const client = new MongoClient('mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.10.1');
+    const client = new MongoClient('mongodb+srv://silasrp:Abc123!@vue-cluster.hldcook.mongodb.net/');
     await client.connect();
     const db = client.db('full-stack-vue');
 
